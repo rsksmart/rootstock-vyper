@@ -6,7 +6,7 @@ This is from the [Cyfrin Updraft Vyper Course]().
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
     - [Optional prerequisites](#optional-prerequisites)
-    - [Optional Gitpod](#optional-gitpod)
+    - [Optional Gitpod or CodeSpaces](#optional-gitpod-or-codespaces)
   - [Installation](#installation)
     - [uv](#uv)
     - [pip/python](#pippython)
@@ -40,11 +40,18 @@ If you're an advanced python user, you can use virtual environments and classic 
 - [python](https://www.python.org/)
 - [pip](https://pypi.org/project/pip/)
 
-### Optional Gitpod
+### Optional Gitpod or CodeSpaces
 
 If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/cyfrin/web3py-favorites-cu)
+<div style="display: flex; justify-content: center; gap: 20px;">
+  <a href="https://gitpod.io/#github.com/cyfrin/web3py-favorites-cu">
+    <img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" style="height: 50px;">
+  </a>
+  <a href="https://github.dev/Cyfrin/web3py-favorites-cu">
+    <img src="https://www.svgrepo.com/show/347707/codespaces.svg" alt="Open in CodeSpaces" style="height: 50px;">
+  </a>
+</div>
 
 
 ## Installation
