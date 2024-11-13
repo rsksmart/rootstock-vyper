@@ -20,7 +20,7 @@ def main():
             favorites_code, output_formats=["bytecode", "abi"]
         )
 
-    chain_id = 31337  # Make sure this matches your virtual network!
+    chain_id = 31337  # Make sure this matches your virtual or anvil network!
 
     print("Getting environment variables...")
     my_address = os.getenv("MY_ADDRESS")
@@ -43,8 +43,8 @@ def main():
     transaction = favorites_contract.constructor().build_transaction(
         {
             "chainId": chain_id,
-            # "gasPrice": w3.eth.gas_price,
-            "gasPrice": 1,
+            "gasPrice": w3.eth.gas_price,
+            # "gasPrice": 1,
             "from": my_address,
             "nonce": nonce,
         }
