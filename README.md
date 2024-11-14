@@ -34,6 +34,14 @@ This is from the [Cyfrin Updraft Vyper Course]().
   - You'll know you've done it right if you can run `git --version` and see a version number.
 - [anvil](https://book.getfoundry.sh/getting-started/installation)
   - You'll know you've done it right if you can run `anvil --version` and see a version number.
+  - Helpful shortcut:
+```bash
+# For bash
+echo "source $HOME/.bashrc >> .bash_profile"
+
+# For zsh
+echo "source $HOME/.zshrc >> .zsh_profile"
+```
 
 ### Optional prerequisites
 
