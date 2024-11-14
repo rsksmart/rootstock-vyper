@@ -40,7 +40,7 @@ This is from the [Cyfrin Updraft Vyper Course]().
 echo "source $HOME/.bashrc >> .bash_profile"
 
 # For zsh
-echo "source $HOME/.zshrc >> .zsh_profile"
+echo "source $HOME/.zshenv >> .zsh_profile"
 ```
 
 ### Optional prerequisites
