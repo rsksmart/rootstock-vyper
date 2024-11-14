@@ -37,10 +37,10 @@ This is from the [Cyfrin Updraft Vyper Course]().
   - Helpful shortcut:
 ```bash
 # For bash
-echo "source $HOME/.bashrc >> .bash_profile"
+echo "source $HOME/.bashrc >> $HOME/.bash_profile"
 
 # For zsh
-echo "source $HOME/.zshenv >> .zprofile"
+echo "source $HOME/.zshenv >> $HOME/.zprofile"
 ```
 
 ### Optional prerequisites
