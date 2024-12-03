@@ -19,7 +19,7 @@
   - [Deployment Script](#deployment-script)
   - [Key Points About RSK Deployment](#key-points-about-rsk-deployment)
   - [Running the Deployment](#running-the-deployment)
-  - [Special Thanks To](#special-thanks-to)
+  - [Special Thanks](#special-thanks)
 
 This guide walks through the process of deploying a smart contract to the RootStock (RSK) testnet using Python and Web3.py. We'll be deploying a simple Vyper contract that demonstrates how to interact with the RSK network.
 
@@ -214,7 +214,7 @@ Execute the deployment script:
 ```bash
 python deploy_favorites_unsafe.py
 ```
-## Special Thanks To
+## Special Thanks
 
 The boilerplate used in this project was adopted from the Cyfrin Updraft Python and Viper starter kit:
 - [Patrick Collins @PatrickAlphaC](https://twitter.com/PatrickAlphaC)
