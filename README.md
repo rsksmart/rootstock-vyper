@@ -216,6 +216,6 @@ python deploy_favorites_unsafe.py
 ```
 ## Special Thanks
 
-The boilerplate used in this project was adopted from the Cyfrin Updraft Python and Viper starter kit:
+The boilerplate used in this project was adopted from the Cyfrin Updraft Python and Viper Starter Kit:
 - [Patrick Collins @PatrickAlphaC](https://twitter.com/PatrickAlphaC)
 - [Cyfrin Updraft @cyfrinupdraft](https://updraft.cyfrin.io/courses/intermediate-python-vyper-smart-contract-development)
