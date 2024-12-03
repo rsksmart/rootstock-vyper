@@ -1,5 +1,4 @@
-# I'm a comment!
-
+# Forked from Cyfrin Updraft https://github.com/Cyfrin/web3py-favorites-cu
 # pragma version 0.4.0
 # @license MIT
 
@@ -18,7 +17,7 @@ name_to_favorite_number: HashMap[String[100], uint256]
 
 @deploy
 def __init__():
-    self.my_favorite_number = 7
+    self.my_favorite_number = 0
 
 @external
 def store(favorite_number: uint256):

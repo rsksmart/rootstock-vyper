@@ -852,7 +852,7 @@ wheels = [
 ]
 
 [[package]]
-name = "web3py-simple-storage-cu"
+name = "web3py-vyper-rootstock"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

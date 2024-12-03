@@ -17,11 +17,24 @@ def main():
             favorites_code, output_formats=["bytecode", "abi"]
         )
 
-    chain_id = 31337  # Make sure this matches your virtual network!
+    chain_id = 31  # RSK testnet chain ID
 
     print("Getting environment variables...")
     my_address = os.getenv("MY_ADDRESS")
     private_key = os.getenv("PRIVATE_KEY")
+
+    # Check balance before deployment
+    balance = w3.eth.get_balance(my_address)
+    balance_in_rbtc = w3.from_wei(balance, "ether")
+    print(f"Account balance: {balance_in_rbtc} RBTC")
+
+    if balance == 0:
+        print("Your account has no RBTC! Please get some testnet RBTC from the faucet:")
+        print("1. Go to https://faucet.rsk.co/")
+        print("2. Enter your address:", my_address)
+        print("3. Complete the captcha and request funds")
+        print("4. Wait a few minutes for the transaction to be confirmed")
+        return
 
     # Create the contract in Python
     favorites_contract = w3.eth.contract(
@@ -38,10 +51,10 @@ def main():
     transaction = favorites_contract.constructor().build_transaction(
         {
             "chainId": chain_id,
-            # "gasPrice": w3.eth.gas_price,
-            "gasPrice": 1,
             "from": my_address,
             "nonce": nonce,
+            "gas": 3000000,  # Higher gas limit for RSK
+            "gasPrice": w3.eth.gas_price * 2,  # Increase gas price to ensure transaction goes through
         }
     )
 
