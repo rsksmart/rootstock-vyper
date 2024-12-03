@@ -1,30 +1,22 @@
-# web3py Favorites
+# Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python
 
-This is from the [Cyfrin Updraft Vyper Course]().
-
-- [web3py Favorites](#web3py-favorites)
-- [Getting Started](#getting-started)
+## Table of Contents
+- [Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python](#deploying-a-vyper-smart-contract-to-rootstock-rsk-testnet-using-python)
+  - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
-    - [Optional prerequisites](#optional-prerequisites)
-    - [Optional Gitpod or CodeSpaces](#optional-gitpod-or-codespaces)
   - [Installation](#installation)
     - [uv](#uv)
     - [pip/python](#pippython)
   - [Quickstart](#quickstart)
-- [Deploying with Python](#deploying-with-python)
-  - [1. Setup Tenderly Virtual Network](#1-setup-tenderly-virtual-network)
-  - [2. Fund a wallet](#2-fund-a-wallet)
-  - [3. Get your RPC URL](#3-get-your-rpc-url)
-  - [The Unsafe Way](#the-unsafe-way)
-    - [4. Run the unsafe version](#4-run-the-unsafe-version)
-  - [The Safer Way](#the-safer-way)
-  - [4. Encrypt your private key](#4-encrypt-your-private-key)
-    - [5. Run the safe version](#5-run-the-safe-version)
-- [Maintainer notes](#maintainer-notes)
-  - [Build a new requirements.txt](#build-a-new-requirementstxt)
+  - [Setup Environment](#setup-environment)
+  - [Configuration](#configuration)
+  - [Get Testnet RBTC](#get-testnet-rbtc)
+  - [The Smart Contract](#the-smart-contract)
+  - [Deployment Script](#deployment-script)
+  - [Key Points About RSK Deployment](#key-points-about-rsk-deployment)
+  - [Running the Deployment](#running-the-deployment)
 
-
-# Getting Started
+This guide walks through the process of deploying a smart contract to the RootStock (RSK) testnet using Python and Web3.py. We'll be deploying a simple Vyper contract that demonstrates how to interact with the RSK network.
 
 ## Prerequisites
 
@@ -35,6 +27,7 @@ This is from the [Cyfrin Updraft Vyper Course]().
 - [anvil](https://book.getfoundry.sh/getting-started/installation)
   - You'll know you've done it right if you can run `anvil --version` and see a version number.
   - Helpful shortcut:
+  
 ```bash
 # For bash
 echo "source $HOME/.bashrc >> $HOME/.bash_profile"
@@ -43,26 +36,10 @@ echo "source $HOME/.bashrc >> $HOME/.bash_profile"
 echo "source $HOME/.zshenv >> $HOME/.zprofile"
 ```
 
-### Optional prerequisites
-
-If you're an advanced python user, you can use virtual environments and classic python/pip to work here.
-
-- [python](https://www.python.org/)
-- [pip](https://pypi.org/project/pip/)
-
-### Optional Gitpod or CodeSpaces
-
-If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
-
-<div style="display: flex; justify-content: center; gap: 20px;">
-  <a href="https://gitpod.io/#github.com/cyfrin/web3py-favorites-cu">
-    <img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" style="height: 50px;">
-  </a>
-  <a href="https://github.dev/Cyfrin/web3py-favorites-cu">
-    <img src="https://www.svgrepo.com/show/347707/codespaces.svg" alt="Open in CodeSpaces" style="height: 50px;">
-  </a>
-</div>
-
+- Python 3.x
+- A text editor
+- Basic understanding of smart contracts and Python
+- RSK testnet RBTC (we'll show you how to get this)
 
 ## Installation
 
@@ -93,101 +70,143 @@ uv run hello.py # for UV
 python hello.py # for pip/python
 ```
 
-# Deploying with Python
+## Setup Environment
 
-## 1. Setup Tenderly Virtual Network
-
-Go to [tenderly](https://dashboard.tenderly.co/) and sign up, and then select `Create Virtual TestNet`.
-
-![Tenderly Virtual Network](./img/virtual_network.png)
-
-Your config should look like this:
-
-![Tenderly Virtual Network](./img/config.png)
-
-## 2. Fund a wallet
-
-Select your network, and hit `Fund Account` and paste in an address.
-
-We recommend using `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266` since it's a well-known testing address. 
-
-![Tenderly Virtual Network](./img/fund.png)
-
-## 3. Get your RPC URL
-
-Create a `.env` file, get your RPC URL from the tenderly dashboard, and add it to your `.env` file.
-
-![Tenderly Virtual Network](./img/RPC.png)
-
-Example `.env`:
+First, let's set up our Python environment and install the necessary packages:
 
 ```bash
-RPC_URL=https://asdfasdfs
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install required packages
+pip install python-dotenv web3 vyper
 ```
 
-## The Unsafe Way
+## Configuration
 
-### 4. Run the unsafe version
+Create a `.env` file in your project root with your configuration:
 
-Add your private key to your `.env` file. This should be the private key associated with the account you funded. If you used the address above, use the following:
+```env
+RPC_URL="https://rpc.testnet.rootstock.io/[YOUR-API-KEY]"
+PRIVATE_KEY="your-private-key"  # Never commit your real private key!
+MY_ADDRESS="your-wallet-address"
+```
+THIS IS ONLY FOR TESTING - TYPICALLY YOU SHOULD NEVER SHARE YOUR PRIVATE KEY.
 
-_example `.env`_
+## Get Testnet RBTC
+
+Before deploying, you'll need some testnet RBTC:
+
+1. Go to the RSK faucet: https://faucet.rsk.co/
+2. Enter your wallet address
+3. Complete the captcha and request funds
+4. Wait a few minutes for the transaction to be confirmed
+
+## The Smart Contract
+
+Here's our simple Vyper contract (`favorites.vy`):
+
+```python
+# @version ^0.3.7
+
+favorite_number: public(uint256)
+owner: public(address)
+
+@external
+def __init__():
+    self.owner = msg.sender
+    self.favorite_number = 0
+
+@external
+def store(new_number: uint256):
+    self.favorite_number = new_number
+```
+
+## Deployment Script
+
+Here's our Python script to deploy the contract (`deploy_favorites_unsafe.py`):
+
+```python
+from web3 import Web3
+from dotenv import load_dotenv
+from vyper import compile_code
+import os
+
+load_dotenv()
+
+RPC_URL = os.getenv("RPC_URL")
+
+def main():
+    print("Let's read in the Vyper code and deploy it to the blockchain!")
+    w3 = Web3(Web3.HTTPProvider(RPC_URL))
+    with open("favorites.vy", "r") as favorites_file:
+        favorites_code = favorites_file.read()
+        compliation_details = compile_code(
+            favorites_code, output_formats=["bytecode", "abi"]
+        )
+
+    chain_id = 31  # RSK testnet chain ID
+
+    print("Getting environment variables...")
+    my_address = os.getenv("MY_ADDRESS")
+    private_key = os.getenv("PRIVATE_KEY")
+
+    # Check balance before deployment
+    balance = w3.eth.get_balance(my_address)
+    balance_in_rbtc = w3.from_wei(balance, "ether")
+    print(f"Account balance: {balance_in_rbtc} RBTC")
+
+    if balance == 0:
+        print("Your account has no RBTC! Please get some testnet RBTC from the faucet:")
+        print("1. Go to https://faucet.rsk.co/")
+        print("2. Enter your address:", my_address)
+        print("3. Complete the captcha and request funds")
+        print("4. Wait a few minutes for the transaction to be confirmed")
+        return
+
+    # Create the contract in Python
+    favorites_contract = w3.eth.contract(
+        abi=compliation_details["abi"], bytecode=compliation_details["bytecode"]
+    )
+
+    # Submit the transaction that deploys the contract
+    nonce = w3.eth.get_transaction_count(my_address)
+
+    print("Building the transaction...")
+    transaction = favorites_contract.constructor().build_transaction(
+        {
+            "chainId": chain_id,
+            "from": my_address,
+            "nonce": nonce,
+            "gas": 3000000,  # Higher gas limit for RSK
+            "gasPrice": w3.eth.gas_price * 2,  # Double the gas price to ensure transaction goes through
+        }
+    )
+
+    print("Signing transaction...")
+    signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_key)
+    print("Deploying contract...")
+    tx_hash = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print(f"Contract deployed! Address: {tx_receipt.contractAddress}")
+
+if __name__ == "__main__":
+    main()
+```
+
+## Key Points About RSK Deployment
+
+1. **Chain ID**: RSK testnet uses chain ID 31
+2. **Gas Settings**: 
+   - We use a higher gas limit (3,000,000) for RSK
+   - We double the gas price to ensure the transaction goes through
+3. **Transaction Type**: 
+   - RSK works best with legacy transactions (using `gasPrice` instead of EIP-1559 parameters)
+
+## Running the Deployment
+
+Execute the deployment script:
+
 ```bash
-RPC_URL="your_rpc_url"
-
-# NEVER DO THIS WITH A REAL KEY!!!
-PRIVATE_KEY="0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
-MY_ADDRESS="0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-```
-
-This is OK since the address and private key are well known testing keys.
-
-Then, you can run:
-
-```bash
-uv run deploy_favorites_unsafe.py # uv
-# or
-python deploy_favorites_unsafe.py # pip/python
-```
-
-And you'll deploy the contract!
-
-## The Safer Way
-
-## 4. Encrypt your private key
-
-We want you to practice not having your private key in plain text! So run the following:
-
-```bash
-uv run encrypt_key.py # uv 
-# or
-python encrypt_key.py # pip/python
-```
-
-This will prompt you for a password and private key. We recommend using the following:
-
-```
-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-```
-
-Since this is a well-known testing key, feel free to use an easy password - TYPICALLY YOU SHOULD NEVER SHARE YOUR PRIVATE KEY.
-
-### 5. Run the safe version
-
-```bash
-uv run deploy_favorites.py # uv
-# or
-python deploy_favorites.py # pip/python
-```
-
-This will prompt you for a password to decrypt, and then you'll deploy your contract without exposing your private key! Huzzah!
-
-# Maintainer notes
-
-If you're a student, ignore this section!
-
-## Build a new requirements.txt
-
-```bash
-uv pip compile pyproject.toml -o requirements.txt
-```
+python deploy_favorites_unsafe.py
