@@ -28,8 +28,6 @@ This guide walks through the process of deploying a smart contract to the RootSt
   - You'll know you've done it right if you can run `uv --version` and see a version number.
 - [git](https://git-scm.com/)
   - You'll know you've done it right if you can run `git --version` and see a version number.
-- [anvil](https://book.getfoundry.sh/getting-started/installation)
-  - You'll know you've done it right if you can run `anvil --version` and see a version number.
   - Helpful shortcut:
   
 ```bash
