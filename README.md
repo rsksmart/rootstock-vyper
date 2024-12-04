@@ -47,8 +47,8 @@ echo "source $HOME/.zshenv >> $HOME/.zprofile"
 ## Installation
 
 ```bash
-git clone https://github.com/cyfrin/web3py-favorites-cu
-cd web3py-favorites-cu
+git clone https://github.com/EdwinLiavaa/Web3py-Vyper-RootStock.git
+cd Web3py-Vyper-RootStock
 ```
 
 ### uv 
