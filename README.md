@@ -4,6 +4,15 @@
  <img width="1000" src="https://github.com/EdwinLiavaa/Web3py-Vyper-RootStock/blob/main/pic.png">
 </p>
 
+This guide demonstrates how to deploy smart contracts written in Vyper to the RootStock (RSK) testnet using Python and Web3.py. RSK is a groundbreaking smart contract platform that's merge-mined with Bitcoin, offering unique advantages for developers:
+
+- **Bitcoin Compatibility**: Deploy smart contracts while leveraging Bitcoin's security and network effects
+- **EVM Compatibility**: Use familiar Ethereum tools and practices while building on Bitcoin
+- **Lower Fees**: Benefit from RSK's cost-effective transaction fees
+- **Scalability**: Enjoy higher transaction throughput compared to the Bitcoin mainnet
+
+We'll walk through creating a simple Vyper contract and deploying it to RSK's testnet, covering everything from environment setup to handling RSK-specific configurations. Whether you're an experienced Ethereum developer looking to expand to Bitcoin-based smart contracts, or just starting your blockchain journey, this guide will help you get up and running with RSK.
+
 ## Table of Contents
 - [Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python](#deploying-a-vyper-smart-contract-to-rootstock-rsk-testnet-using-python)
   - [Table of Contents](#table-of-contents)
