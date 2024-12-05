@@ -30,8 +30,6 @@ We'll walk through creating a simple Vyper contract and deploying it to RSK's te
   - [Running the Deployment](#running-the-deployment)
   - [Special Thanks](#special-thanks)
 
-This guide walks through the process of deploying a smart contract to the RootStock (RSK) testnet using Python and Web3.py. We'll be deploying a simple Vyper contract that demonstrates how to interact with the RSK network.
-
 ## Prerequisites
 
 - [uv](https://docs.astral.sh/uv/)
