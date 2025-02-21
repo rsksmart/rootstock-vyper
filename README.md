@@ -1,3 +1,8 @@
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rootstock-vyper/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/rootstock-vyper)
+[![CodeQL](https://github.com/rsksmart/rootstock-vyper/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/rootstock-vyper/actions?query=workflow%3ACodeQL)
+
+<img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
+
 # Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python
 
 <p align="center">
