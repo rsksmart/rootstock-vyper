@@ -3,23 +3,23 @@
 
 <img src="rootstock-logo.png" alt="RSK Logo" style="width:100%; height: auto;" />
 
-# Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python
+# Deploying a Vyper Smart Contract to Rootstock Testnet using Python
 
 <p align="center">
  <img width="1000" src="https://github.com/EdwinLiavaa/Web3py-Vyper-RootStock/blob/main/pic.png">
 </p>
 
-This guide demonstrates how to deploy smart contracts written in Vyper to the RootStock (RSK) testnet using Python and Web3.py. RSK is a groundbreaking smart contract platform that's merge-mined with Bitcoin, offering unique advantages for developers:
+This guide demonstrates how to deploy smart contracts written in Vyper to the Rootstock testnet using Python and Web3.py. Rootstock is a smart contract platform that's merge-mined with Bitcoin, offering unique advantages for developers:
 
 - **Bitcoin Compatibility**: Deploy smart contracts while leveraging Bitcoin's security and network effects
 - **EVM Compatibility**: Use familiar Ethereum tools and practices while building on Bitcoin
-- **Lower Fees**: Benefit from RSK's cost-effective transaction fees
+- **Lower Fees**: Benefit from Rootstock's cost-effective transaction fees
 - **Scalability**: Enjoy higher transaction throughput compared to the Bitcoin mainnet
 
-We'll walk through creating a simple Vyper contract and deploying it to RSK's testnet, covering everything from environment setup to handling RSK-specific configurations. Whether you're an experienced Ethereum developer looking to expand to Bitcoin-based smart contracts, or just starting your blockchain journey, this guide will help you get up and running with RSK.
+We'll walk through creating a simple Vyper contract and deploying it to Rootstock's testnet, covering everything from environment setup to handling Rootstock-specific configurations. Whether you're an experienced Ethereum developer looking to expand to Bitcoin-based smart contracts, or just starting your blockchain journey, this guide will help you get up and running with Vyper Contracts on Rootstock.
 
 ## Table of Contents
-- [Deploying a Vyper Smart Contract to RootStock (RSK) Testnet using Python](#deploying-a-vyper-smart-contract-to-rootstock-rsk-testnet-using-python)
+- [Deploying a Vyper Smart Contract to RootStock Testnet using Python](#deploying-a-vyper-smart-contract-to-rootstock-rsk-testnet-using-python)
   - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -31,7 +31,7 @@ We'll walk through creating a simple Vyper contract and deploying it to RSK's te
   - [Get Testnet RBTC](#get-testnet-rbtc)
   - [The Smart Contract](#the-smart-contract)
   - [Deployment Script](#deployment-script)
-  - [Key Points About RSK Deployment](#key-points-about-rsk-deployment)
+  - [Key Points About Rootstock Deployment](#key-points-about-rootstock-deployment)
   - [Running the Deployment](#running-the-deployment)
   - [Special Thanks](#special-thanks)
 
@@ -54,13 +54,13 @@ echo "source $HOME/.zshenv >> $HOME/.zprofile"
 - Python 3.x
 - A text editor
 - Basic understanding of smart contracts and Python
-- RSK testnet RBTC (will show you how to get this)
+- Rootstock testnet RBTC (will show you how to get this)
 
 ## Installation
 
 ```bash
-git clone https://github.com/EdwinLiavaa/Web3py-Vyper-RootStock.git
-cd Web3py-Vyper-RootStock
+git clone https://github.com/rsksmart/rootstock-vyper.git
+cd rootstock-vyper
 ```
 
 ### uv 
@@ -113,7 +113,7 @@ THIS IS ONLY FOR TESTING - TYPICALLY YOU SHOULD NEVER SHARE YOUR PRIVATE KEY.
 
 Before deploying, you'll need some testnet RBTC:
 
-1. Go to the RSK faucet: https://faucet.rsk.co/
+1. Go to the Rootstock faucet: https://faucet.rootstock.io/
 2. Enter your wallet address
 3. Complete the captcha and request funds
 4. Wait a few minutes for the transaction to be confirmed
@@ -161,7 +161,7 @@ def main():
             favorites_code, output_formats=["bytecode", "abi"]
         )
 
-    chain_id = 31  # RSK testnet chain ID
+    chain_id = 31  # Rootstock testnet chain ID
 
     print("Getting environment variables...")
     my_address = os.getenv("MY_ADDRESS")
@@ -174,7 +174,7 @@ def main():
 
     if balance == 0:
         print("Your account has no RBTC! Please get some testnet RBTC from the faucet:")
-        print("1. Go to https://faucet.rsk.co/")
+        print("1. Go to https://faucet.rootstock.io/")
         print("2. Enter your address:", my_address)
         print("3. Complete the captcha and request funds")
         print("4. Wait a few minutes for the transaction to be confirmed")
@@ -194,7 +194,7 @@ def main():
             "chainId": chain_id,
             "from": my_address,
             "nonce": nonce,
-            "gas": 3000000,  # Higher gas limit for RSK
+            "gas": 3000000,  # Higher gas limit for Rootstock
             "gasPrice": w3.eth.gas_price * 2,  # Double the gas price to ensure transaction goes through
         }
     )
@@ -210,14 +210,14 @@ if __name__ == "__main__":
     main()
 ```
 
-## Key Points About RSK Deployment
+## Key Points About Rootstock Deployment
 
-1. **Chain ID**: RSK testnet uses chain ID 31
+1. **Chain ID**: Rootstock testnet uses chain ID 31
 2. **Gas Settings**: 
-   - We use a higher gas limit (3,000,000) for RSK
+   - We use a higher gas limit (3,000,000) for Rootstock
    - We double the gas price to ensure the transaction goes through
 3. **Transaction Type**: 
-   - RSK works best with legacy transactions (using `gasPrice` instead of EIP-1559 parameters)
+   - Rootstock works best with legacy transactions (using `gasPrice` instead of EIP-1559 parameters)
 
 ## Running the Deployment
 
